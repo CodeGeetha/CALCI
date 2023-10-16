@@ -1,14 +1,20 @@
-let hist='';
+// let hist='';
 let openbrace=true;
 let val = "";
 let buttons = document.querySelectorAll('.button');
-
+let history_data=[];
+let expression_data="";
+let result_data="";
 buttons.forEach((button)=>{
     button.addEventListener('click', (e)=>{
         if(e.target.innerHTML === '='){
             try{
                 val = eval(val);
-                hist=hist+'='+val;
+                result_data=val;
+                history_data.push({"expression":expression_data,"result":result_data});
+                showlogdata();
+                result_data="";
+                expression_data="";
                 document.querySelector('input').value = val;
             }
             catch(error){
@@ -19,33 +25,46 @@ buttons.forEach((button)=>{
             val = ""
             document.querySelector('input').value = val;
         }
-        else if(e.target.innerHTML==='()'){
-            if(openbrace===true){
-                openbrace=false;
-                val=val+'(';
-                hist=val;
+        else if(e.target.innerHTML==='()') {
+            if (openbrace === true) {
+                openbrace = false;
+                val = val + '(';
+                expression_data=val;
                 document.querySelector('input').value = val;
-            }
-            else{
-                openbrace=true;
-                val=val+')';
-                hist=val;
+            } else {
+                openbrace = true;
+                val = val + ')';
+                expression_data=val;
                 document.querySelector('input').value = val;
             }
         }
         else{
             val = val+ e.target.innerHTML;
-            hist=val;
+            expression_data=val;
             document.querySelector('input').value = val;
         }
     })
 })
-
 document.getElementById('backspace').addEventListener('click', () => {
     val=document.querySelector('input').value.substring(0,document.querySelector('input').value.length-1);
     document.querySelector('input').value=val;
 });
 
+function showlogdata(){
+    let log=document.getElementById('hist');
+    let str="";
+    for(let key in history_data){
+        str+=""+history_data[key]["expression"]+"="+history_data[key]["result"]+"<br>";
+        log.innerHTML=str;
+    }
+}
+
 document.getElementById('history').addEventListener('click',()=>{
-    document.querySelector('input').value=hist;
-});
+    let x=document.getElementById('hist');
+    if(x.style.display==='none'){
+        x.style.display='block';
+    }
+    else {
+        x.style.display='none';
+    }
+})

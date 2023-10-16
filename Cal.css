@@ -1,8 +1,14 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@300&display=swap');*/
 body {
-    height: 100vh;
+    height: 80vh;
     width: 100%;
     font-family: 'Roboto', sans-serif;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+}
+.calculator{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,4 +66,17 @@ body {
     border:0;
     background: #f8b4d6;
     cursor: pointer;
+}
+#hist{
+    display:none;
+    background: lightseagreen;
+    font-size:20px;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+    position:absolute;
+    top:70px;
+    left:0;
+    width:300px;
+    height:500px;
 }
