@@ -1,7 +1,10 @@
-// let hist='';
+
+
 let openbrace=true;
 let val = "";
 let buttons = document.querySelectorAll('.button');
+//for history
+let hist=document.getElementById('hist');
 let history_data=[];
 let expression_data="";
 let result_data="";
@@ -12,7 +15,7 @@ buttons.forEach((button)=>{
                 val = eval(val);
                 result_data=val;
                 history_data.push({"expression":expression_data,"result":result_data});
-                showlogdata();
+                historydata();
                 result_data="";
                 expression_data="";
                 document.querySelector('input').value = val;
@@ -38,27 +41,36 @@ buttons.forEach((button)=>{
                 document.querySelector('input').value = val;
             }
         }
+
+        else if(e.target.innerHTML === '%'){
+            val=val+e.target.innerHTML;
+            val=(parseFloat(val)/100).toString();
+            document.querySelector('input').value=val;
+        }
+        else if((e.target.innerHTML==='+'||e.target.innerHTML==='-'||e.target.innerHTML==='*'||e.target.innerHTML==='/')&&(val.slice(-1)==='+'||val.slice(-1)==='-'||val.slice(-1)==='*'||val.slice(-1)==='/')){
+            val=document.querySelector('input').value.substring(0,document.querySelector('input').value.length-1)+e.target.innerHTML;
+            document.querySelector('input').value=val;
+        }
         else{
             val = val+ e.target.innerHTML;
             expression_data=val;
             document.querySelector('input').value = val;
         }
-    })
-})
+    });
+});
 document.getElementById('backspace').addEventListener('click', () => {
     val=document.querySelector('input').value.substring(0,document.querySelector('input').value.length-1);
     document.querySelector('input').value=val;
 });
 
-function showlogdata(){
-    let log=document.getElementById('hist');
+
+function historydata(){
     let str="";
     for(let key in history_data){
-        str+=""+history_data[key]["expression"]+"="+history_data[key]["result"]+"<br>";
-        log.innerHTML=str;
+        str+= history_data[key]["expression"]+"="+history_data[key]["result"]+"<br>";
+        hist.innerHTML=str;
     }
 }
-
 document.getElementById('history').addEventListener('click',()=>{
     let x=document.getElementById('hist');
     if(x.style.display==='none'){
