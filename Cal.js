@@ -1,5 +1,4 @@
 
-
 let openbrace=true;
 let val = "";
 let buttons = document.querySelectorAll('.button');
@@ -41,14 +40,13 @@ buttons.forEach((button)=>{
                 document.querySelector('input').value = val;
             }
         }
-
         else if(e.target.innerHTML === '%'){
             val=val+e.target.innerHTML;
             val=(parseFloat(val)/100).toString();
             document.querySelector('input').value=val;
         }
         else if((e.target.innerHTML==='+'||e.target.innerHTML==='-'||e.target.innerHTML==='*'||e.target.innerHTML==='/')&&(val.slice(-1)==='+'||val.slice(-1)==='-'||val.slice(-1)==='*'||val.slice(-1)==='/')){
-            val=document.querySelector('input').value.substring(0,document.querySelector('input').value.length-1)+e.target.innerHTML;
+            val=val.slice(0,-1)+e.target.innerHTML;
             document.querySelector('input').value=val;
         }
         else{
@@ -59,7 +57,7 @@ buttons.forEach((button)=>{
     });
 });
 document.getElementById('backspace').addEventListener('click', () => {
-    val=document.querySelector('input').value.substring(0,document.querySelector('input').value.length-1);
+    val=val.slice(0,-1);
     document.querySelector('input').value=val;
 });
 
