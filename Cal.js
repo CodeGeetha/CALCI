@@ -1,4 +1,3 @@
-
 let openbrace=true;
 let val = "";
 let buttons = document.querySelectorAll('.button');
@@ -11,7 +10,11 @@ buttons.forEach((button)=>{
     button.addEventListener('click', (e)=> {
         if (e.target.innerHTML === '=') {
             try {
+                if(val.slice(-1)==='*'){
+                    val = eval(val.slice(0,-1));
+                }else{
                 val = eval(val);
+                }
                 result_data = val;
                 history_data.push({"expression": expression_data, "result": result_data});
                 historydata();
@@ -66,7 +69,7 @@ buttons.forEach((button)=>{
                             tempper = (parseFloat(temp) / parseFloat(per) * 100).toString();
                         }
 
-                        val= tempper;
+                        val= tempper+'*';
                         // document.querySelector('input').value = val;
                         break;
                     }
