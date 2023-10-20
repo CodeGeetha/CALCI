@@ -8,12 +8,12 @@ let expression_data="";
 let result_data="";
 buttons.forEach((button)=>{
     button.addEventListener('click', (e)=> {
-        if (e.target.innerHTML === '=') {
+        if (e.target.innerHTML === '=' && val!=="") {
             try {
                 if(val.slice(-1)==='*'){
                     val = eval(val.slice(0,-1));
                 }else{
-                val = eval(val);
+                    val = eval(val);
                 }
                 result_data = val;
                 history_data.push({"expression": expression_data, "result": result_data});
@@ -77,9 +77,11 @@ buttons.forEach((button)=>{
             }
         }
         else{
-            val = val+ e.target.innerHTML;
-            expression_data=val;
-            document.querySelector('input').value = val;
+            if(e.target.innerHTML!=='=') {
+                val = val + e.target.innerHTML;
+                expression_data = val;
+                document.querySelector('input').value = val;
+            }
         }
     });
 });
